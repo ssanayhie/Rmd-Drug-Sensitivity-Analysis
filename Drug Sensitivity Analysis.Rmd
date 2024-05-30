@@ -1,0 +1,599 @@
+---
+title: "Drug Sensitivity Analysis"
+author: "Samantha A Sanayhie"
+date: "2024-05-30"
+output: github_document
+---
+
+
+```{r packages}
+install.packages('tidyverse')
+install.packages('knitr')
+```
+
+```{r libraries}
+library(tidyverse)
+library(knitr)
+```
+```{r calling file}
+raw_data <- read.csv(file = file.choose())
+```
+
+```{r assigning data}
+head(raw_data)
+all_data <- subset(raw_data, select = -c(2))
+all_data
+```
+
+```{r averages of technical replicates}
+# averaging the replicates
+# number beside conc indicates set not actual concentration
+#Sample 1
+avgSample1_1 <- all_data %>% 
+  select(A1:A3) %>% 
+  transmute(Conc1_Sample1 = (A1 + A2 + A3) / 3)
+
+avgSample1_2 <-all_data %>% 
+  select(A4:A6) %>% 
+  transmute(Conc2_Sample1 = (A4 + A5 + A6)/3)
+
+avgSample1_3 <-all_data %>% 
+  select(A7:A9) %>% 
+  transmute(Conc3_Sample1 = (A7 + A8 + A9)/3)
+
+avgSample1_4 <-all_data %>% 
+  select(A10:A12) %>% 
+  transmute(Conc4_Sample1 = (A10 + A11 + A12)/3)
+
+#Sample2
+avgSample2_1 <- all_data %>% 
+  select(B1:B3) %>% 
+  transmute(Conc1_Sample2 = (B1 + B2 + B3) / 3)
+
+avgSample2_2 <-all_data %>% 
+  select(B4:B6) %>% 
+  transmute(Conc2_Sample2 = (B4 + B5 + B6)/3)
+
+avgSample2_3 <-all_data %>% 
+  select(B7:B9) %>% 
+  transmute(Conc3_Sample2 = (B7 + B8 + B9)/3)
+
+avgSample2_4 <-all_data%>% 
+  select(B10:B12) %>% 
+  transmute(Conc4_Sample2 = (B10 + B11 + B12)/3)
+
+#Sample3
+avgSample3_1 <- all_data %>% 
+  select(C1:C3) %>% 
+  transmute(Conc1_Sample3 = (C1 + C2 + C3) / 3)
+
+avgSample3_2 <-all_data %>% 
+  select(C4:C6) %>% 
+  transmute(Conc2_Sample3 = (C4 + C5 + C6)/3)
+
+avgSample3_3 <-all_data %>% 
+  select(C7:C9) %>% 
+  transmute(Conc3_Sample3 = (C7 + C8 + C9)/3)
+
+avgSample3_4 <-all_data %>% 
+  select(C10:C12) %>% 
+  transmute(Conc4_Sample3 = (C10 + C11 + C12)/3)
+
+#Sample 4
+avgSample4_1 <- all_data %>% 
+  select(D1:D3) %>% 
+  transmute(Conc1_Sample4 = (D1 + D2 + D3) / 3)
+
+avgSample4_2 <-all_data %>% 
+  select(D4:D6) %>% 
+  transmute(Conc2_Sample4 = (D4 + D5 + D6)/3)
+
+avgSample4_3 <-all_data %>% 
+  select(D7:D9) %>% 
+  transmute(Conc3_Sample4 = (D7 + D8 + D9)/3)
+
+avgSample4_4 <-all_data %>% 
+  select(D10:D12) %>% 
+  transmute(Conc4_Sample4 = (D10 + D11 + D12)/3)
+
+#Sample 5
+avgSample5_1 <- all_data %>% 
+  select(E1:E3) %>% 
+  transmute(Conc1_Sample5 = (E1 + E2 + E3) / 3)
+
+avgSample5_2 <-all_data %>% 
+  select(E4:E6) %>% 
+  transmute(Conc2_Sample5 = (E4 + E5 + E6)/3)
+
+avgSample5_3 <-all_data %>% 
+  select(E7:E9) %>% 
+  transmute(Conc3_Sample5 = (E7 + E8 + E9)/3)
+
+avgSample5_4 <-all_data %>% 
+  select(E10:E12) %>% 
+  transmute(Conc4_Sample5 = (E10 + E11 + E12)/3)
+
+#Sample 6
+avgSample6_1 <- all_data %>% 
+  select(F1:F3) %>% 
+  transmute(Conc1_Sample6 = (F1 + F2 + F3) / 3)
+
+avgSample6_2 <-all_data %>% 
+  select(F4:F6) %>% 
+  transmute(Conc2_Sample6 = (F4 + F5 + F6)/3)
+
+avgSample6_3 <-all_data %>% 
+  select(F7:F9) %>% 
+  transmute(Conc3_Sample6 = (F7 + F8 + F9)/3)
+
+avgSample6_4 <-all_data %>% 
+  select(F10:F12) %>% 
+  transmute(Conc4_Sample6 = (F10 + F11 + F12)/3)
+
+#Sample 7
+avgSample7_1 <- all_data%>% 
+  select(G1:G3) %>% 
+  transmute(Conc1_Sample7 = (G1 + G2 + G3) / 3)
+
+avgSample7_2 <-all_data %>% 
+  select(G4:G6) %>% 
+  transmute(Conc2_Sample7 = (G4 + G5 + G6)/3)
+
+avgSample7_3 <-all_data %>% 
+  select(G7:G9) %>% 
+  transmute(Conc3_Sample7 = (G7 + G8 + G9)/3)
+
+avgSample7_4 <-all_data %>% 
+  select(G10:G12) %>% 
+  transmute(Conc4_Sample7 = (G10 + G11 + G12)/3)
+
+#Sample 8
+avgSample8_1 <- all_data %>% 
+  select(H1:H3) %>% 
+  transmute(Conc1_Sample8 = (H1 + H2 + H3) / 3)
+
+avgSample8_2 <-all_data %>% 
+  select(H4:H6) %>% 
+  transmute(Conc2_Sample8 = (H4 + H5 + H6)/3)
+
+avgSample8_3 <-all_data %>% 
+  select(H7:H9) %>% 
+  transmute(Conc3_Sample8 = (H7 + H8 + H9)/3)
+
+avgSample8_4 <-all_data %>% 
+  select(H10:H12) %>% 
+  transmute(Conc4_Sample8 = (H10 + H11 + H12)/3)
+```
+
+```{r Data Frames}
+#Below are the data frames for each strain and will be used in graphs that compare strains at varying drug concentrations
+Sample1 <- data_frame(all_data[1], avgSample1_1, avgSample1_2, avgSample1_3, avgSample1_4)
+Sample1
+Sample2 <- data_frame(all_data[1], avgSample2_1, avgSample2_2, avgSample2_3, avgSample2_4)
+Sample2
+Sample3 <- data_frame(all_data[1], avgSample3_1, avgSample3_2, avgSample3_3, avgSample3_4)
+Sample3
+Sample4 <- data_frame(all_data[1], avgSample4_1, avgSample4_2, avgSample4_3, avgSample4_4)
+Sample4
+Sample5 <- data_frame(all_data[1], avgSample5_1, avgSample5_2, avgSample5_3, avgSample5_4)
+Sample5
+Sample6 <- data_frame(all_data[1], avgSample6_1, avgSample6_2, avgSample6_3, avgSample6_4)
+Sample6
+Sample7 <- data_frame(all_data[1], avgSample7_1, avgSample7_2, avgSample7_3, avgSample7_4)
+Sample7
+Sample8 <- data_frame(all_data[1], avgSample8_1, avgSample8_2, avgSample8_3, avgSample8_4)
+Sample8
+AvgSamples <- data_frame(all_data[1], Sample1[-1], Sample2[-1], Sample3[-1], Sample4[-1], Sample5[-1], Sample6[-1], Sample7[-1], Sample8[-1])
+AvgSamples
+write.table(AvgSamples, file = "AvgSamples.txt", sep = ",", quote = FALSE, row.names = F)
+
+#Below are the data frames that will be used to compare different strains at one drug concentration
+Concentration1 <- data_frame(all_data[1], avgSample1_1, avgSample2_1, avgSample3_1, avgSample4_1, avgSample5_1, avgSample6_1, avgSample7_1, avgSample8_1)
+Concentration1
+Concentration2 <- data_frame(all_data[1], avgSample1_2, avgSample2_2, avgSample3_2, avgSample4_2, avgSample5_2, avgSample6_2, avgSample7_2, avgSample8_2)
+Concentration2
+Concentration3 <- data_frame(all_data[1], avgSample1_3, avgSample2_3, avgSample3_3, avgSample4_3, avgSample5_3, avgSample6_3, avgSample7_3, avgSample8_3)
+Concentration3
+Concentration4 <- data_frame(all_data[1], avgSample1_4, avgSample2_4, avgSample3_4, avgSample4_4, avgSample5_4, avgSample6_4, avgSample7_4, avgSample8_4)
+Concentration4
+
+```
+
+```{r Line Graphs for Single Strain Analysis}
+#Aesthetics will need to be changed in each graph to be representative of experimental setup
+
+Sample1Plot <- Sample1 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc1_Sample1, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample1, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample1, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample1, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 1',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample1Plot
+
+Sample2Plot <- Sample2 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample2, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample2, colour = "Low Concentration"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample2, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample2, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 2',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample2Plot
+
+Sample3Plot <- Sample3 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample3, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample3, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample3, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample3, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 3',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample3Plot
+
+Sample4Plot <- Sample4 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample4, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample4, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample4, colour = "Mid Concentration"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample4, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 4',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample4Plot
+
+Sample5Plot <- Sample5 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample5, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample5, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample5, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample5, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 5',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample5Plot
+
+Sample6Plot <- Sample6 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample6, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample6, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample6, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample6, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 6',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample6Plot
+
+Sample7Plot <- Sample7 %>%
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample7, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample7, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample7, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample7, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 7',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Sample7Plot
+
+Sample8Plot <- Sample8 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc1_Sample8, colour = "No Drug"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample8, colour = "Low Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample8, colour = "Mid Concentration"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample8, colour = "High Concentration"), size = 1.0) +
+  scale_colour_manual("", values = c("No Drug" = 'darkblue', "Low Concentration" = 'firebrick', 
+                                       "Mid Concentration" = 'gold', "High Concentration" = 'green')) +
+  labs(title = 'Sample 8',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.25))
+Sample8Plot
+```
+
+```{r Line Graphs for Single Drug Concentration Analysis}
+
+Concentration1Plot <- Concentration1 %>% 
+  ggplot(aes(x = Time)) + 
+  geom_point(aes(y = Conc1_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample2, colour = "Sample 2"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample3, colour = "Sample 3"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample4, colour = "Sample 4"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample5, colour = "Sample 5"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample6, colour = "Sample 6"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample7, colour = "Sample 7"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'deepskyblue', "Sample 2" = 'firebrick',
+                                     "Sample 3" = 'gold', "Sample 4" = 'darkorange', 
+                                     "Sample 5" = 'darkgreen', 
+                                     "Sample 6" = 'darkorchid4', 
+                                     "Sample 7" = 'green', "Sample 8" = 'gray0')) +
+  labs(title = 'No Drug Hydroxyurea',
+       x = 'Time (hrs)',
+       y = 'Absorbance Readings') +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.5))
+Concentration1Plot
+
+Concentration2Plot <- Concentration2 %>% 
+  ggplot(aes(x = Time)) +  
+  geom_point(aes(y = Conc2_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample2, colour = "Sample 2"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample3, colour = "Sample 3"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample4, colour = "Sample 4"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample5, colour = "Sample 5"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample6, colour = "Sample 6"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample7, colour = "Sample 7"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'deepskyblue', "Sample 2" = 'firebrick',
+                                     "Sample 3" = 'gold', "Sample 4" = 'darkorange', 
+                                     "Sample 5" = 'darkgreen', 
+                                     "Sample 6" = 'darkorchid4', 
+                                     "Sample 7" = 'green', "Sample 8" = 'gray0')) +
+  labs(title = 'Low Concentration Hydroxyurea',
+       x = 'Time (hrs)',
+       y = 'Absorbance Readings') +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.5))
+Concentration2Plot
+
+Concentration3Plot <- Concentration3 %>% 
+  ggplot(aes(x = Time)) +  
+  geom_point(aes(y = Conc3_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample2, colour = "Sample 2"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample3, colour = "Sample 3"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample4, colour = "Sample 4"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample5, colour = "Sample 5"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample6, colour = "Sample 6"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample7, colour = "Sample 7"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'deepskyblue', "Sample 2" = 'firebrick',
+                                     "Sample 3" = 'gold', "Sample 4" = 'darkorange', 
+                                     "Sample 5" = 'darkgreen', 
+                                     "Sample 6" = 'darkorchid4', 
+                                     "Sample 7" = 'green', "Sample 8" = 'gray0')) +
+  labs(title = 'Mid Concentration Hydroxyurea',
+       x = 'Time (hrs)',
+       y = 'Absorbance Readings') +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.5))
+Concentration3Plot
+
+Concentration4Plot <- Concentration4 %>% 
+  ggplot(aes(x = Time)) +  
+  geom_point(aes(y = Conc4_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample2, colour = "Sample 2"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample3, colour = "Sample 3"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample4, colour = "Sample 4"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample5, colour = "Sample 5"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample6, colour = "Sample 6"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample7, colour = "Sample 7"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'deepskyblue', "Sample 2" = 'firebrick',
+                                     "Sample 3" = 'gold', "Sample 4" = 'darkorange', 
+                                     "Sample 5" = 'darkgreen', 
+                                     "Sample 6" = 'darkorchid4', 
+                                     "Sample 7" = 'green', "Sample 8" = 'gray0')) +
+  labs(title = 'High Concentration Hydroxyurea',
+       x = 'Time (hrs)',
+       y = 'Absorbance Readings') +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.5))
+Concentration4Plot
+```
+
+```{r Parentals vs Double Mutants}
+# Set up of these plots will differ based on plate layout as the y aesthetic corresponds to a respective sample
+
+Plot1 <- Concentration1 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc1_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample5, colour = "Sample 5"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 5" = 'green')) +
+  labs(title = 'No Drug Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot1
+
+Plot2 <- Concentration2 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc2_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample5, colour = "Sample 5"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 5" = 'green')) +
+  labs(title = 'Low Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot2
+
+Plot3 <- Concentration3 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc3_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample5, colour = "Sample 5"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 5" = 'green')) +
+  labs(title = 'Mid Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot3
+
+Plot4 <- Concentration4 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc4_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample5, colour = "Sample 5"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 5" = 'green')) +
+  labs(title = 'High Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot4
+
+Plot5 <- Concentration1 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc1_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample6, colour = "Sample 6"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 6" = 'green')) +
+  labs(title = 'No Drug Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot5
+
+Plot6 <- Concentration2 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc2_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample6, colour = "Sample 6"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 6" = 'green')) +
+  labs(title = 'Low Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot6
+
+Plot7 <- Concentration3 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc3_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample6, colour = "Sample 6"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 6" = 'green')) +
+  labs(title = 'Mid Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot7
+
+Plot8 <- Concentration4 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc4_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample4, colour = "Sample 4"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample6, colour = "Sample 6"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 4" = 'gold', "Sample 6" = 'green')) +
+  labs(title = 'High Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot8
+
+Plot9 <- Concentration1 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc1_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc1_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample7, colour = "Sample 7"), size = 1.0) + 
+  geom_point(aes(y = Conc1_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 7" = 'gold', "Sample 8" = 'green')) +
+  labs(title = 'No Drug Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot9
+
+Plot10 <- Concentration2 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc2_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc2_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample7, colour = "Sample 7"), size = 1.0) + 
+  geom_point(aes(y = Conc2_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 7" = 'gold', "Sample 8" = 'green')) +
+  labs(title = 'Low Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot10
+
+Plot11 <- Concentration3 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc3_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc3_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample7, colour = "Sample 7"), size = 1.0) + 
+  geom_point(aes(y = Conc3_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 7" = 'gold', "Sample 8" = 'green')) +
+  labs(title = 'Mid Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot11
+
+Plot12 <- Concentration4 %>%
+  ggplot(aes(x = ï..Time)) + 
+  geom_point(aes(y = Conc4_Sample1, colour = "Sample 1"), size = 1.0) +
+  geom_point(aes(y = Conc4_Sample2, colour = "Sample 2"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample7, colour = "Sample 7"), size = 1.0) + 
+  geom_point(aes(y = Conc4_Sample8, colour = "Sample 8"), size = 1.0) +
+  scale_colour_manual("", values = c("Sample 1" = 'darkblue', "Sample 2" = 'firebrick', 
+                                       "Sample 7" = 'gold', "Sample 8" = 'green')) +
+  labs(title = 'High Concentration Hydroxyurea',
+       x = "Time(hrs)",
+       y = NULL) +
+  theme_bw() +
+  scale_y_continuous(limits = c(NA, 1.75))
+Plot12
+```
